@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinkedList", "LinkedList\LinkedList.csproj", "{42F5A1A8-4D80-4618-BEAD-B0A9AEAA2C3E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hashtable", "Hashtable\Hashtable.csproj", "{1A24D5C6-00E7-47AE-84DC-97D4453617BB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{42F5A1A8-4D80-4618-BEAD-B0A9AEAA2C3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{42F5A1A8-4D80-4618-BEAD-B0A9AEAA2C3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{42F5A1A8-4D80-4618-BEAD-B0A9AEAA2C3E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A24D5C6-00E7-47AE-84DC-97D4453617BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A24D5C6-00E7-47AE-84DC-97D4453617BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A24D5C6-00E7-47AE-84DC-97D4453617BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A24D5C6-00E7-47AE-84DC-97D4453617BB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

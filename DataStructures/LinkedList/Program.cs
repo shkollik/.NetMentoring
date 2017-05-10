@@ -37,6 +37,7 @@
             LinkedList<int> list = new LinkedList<int>();
             list.RemoveFromTheBeginning();
             System.Console.WriteLine(list.GetLength());
+            //d
 
 
 

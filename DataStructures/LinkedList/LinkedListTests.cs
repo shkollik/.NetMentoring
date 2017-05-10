@@ -10,8 +10,9 @@ namespace DataStructures
         public void AddAt_PositionLessThanSize_And_MoreThanZero()
         {
             LinkedList<int> list = new LinkedList<int>() { 1, 2, 3, 4, 5 };
-            list.AddAt(2, 100);
-            Assert.AreEqual(100, list.ElementAt(2));
+            int positionForAdding = 2;
+            list.AddAt(positionForAdding, 100);
+            Assert.AreEqual(100, list.ElementAt(positionForAdding));
         }
 
         [Test]
