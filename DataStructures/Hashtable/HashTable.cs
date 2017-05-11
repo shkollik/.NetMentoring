@@ -8,31 +8,47 @@ namespace Hashtable
     class HashTable : IHashTable
     {
         LinkedList<Node>[] buckets;
-        private int size = 12; // min number of buckets
+        private int capacity = 12;
+        private double loadFactor = 0.75;
+        private int hashTableSize;
 
         public HashTable()
         {
-            buckets = new LinkedList<Node>[size];
-            for (int i = 0; i < size; i++)
+            InitializeHashTable();
+        }
+
+        public HashTable(int capacity)
+        {
+            this.capacity = capacity;
+            InitializeHashTable();
+        }
+
+        public HashTable(int capacity, double loadFactor)
+        {
+            this.capacity = capacity;
+            this.loadFactor = loadFactor;
+            InitializeHashTable();
+        }
+
+
+        private void InitializeHashTable()
+        {
+            buckets = new LinkedList<Node>[capacity];
+            for (int i = 0; i < capacity; i++)
             {
                 buckets[i] = new LinkedList<Node>();
             }
         }
+
         public object this[object key]
         {
             get
             {
-                //if (Contains(key))
-                //{
-                //    throw new ArgumentException();
-                //}
-                //return buckets[DefineBucketWhereToStore(key)].Where(x => x.key.Equals(key)).First().value;
                 return Get(key);
             }
 
             set
             {
-                //buckets[DefineBucketWhereToStore(key)].AddLast(new Node(key, value));
                 Add(key, value);
             }
         }
@@ -41,31 +57,21 @@ namespace Hashtable
         {
             if (key == null)
             {
-                throw new ArgumentException();
+                throw new ArgumentException("Key can not be null");
             }
 
             int bucketNumber = DefineBucketWhereToStore(key);
-            LinkedList<Node> listOfKeyValuePairsInsideBucket = buckets[bucketNumber];
-            //for (int i = 0; i < listOfKeyValuePairsInsideBucket.Count; i++)
-            //{
-            //    if (listOfKeyValuePairsInsideBucket.ElementAt(i).key.Equals(key))
-            //    {
-            //        return true;
-            //    }
-            //}
+            LinkedList<Node> listOfNodesInsideBucket = buckets[bucketNumber];
 
-            //return false;
-            
-            ListContainsKey(listOfKeyValuePairsInsideBucket, key);
-            return false;
+            return ListContainsKey(listOfNodesInsideBucket, key);
         }
         
 
-        private bool ListContainsKey(LinkedList<Node> listOfKeyValuePairsInsideBucket, Object key)
+        private bool ListContainsKey(LinkedList<Node> listOfNodesInsideBucket, Object key)
         {
-            for (int i = 0; i < listOfKeyValuePairsInsideBucket.Count; i++)
+            for (int i = 0; i < listOfNodesInsideBucket.Count; i++)
             {
-                if (listOfKeyValuePairsInsideBucket.ElementAt(i).key.Equals(key))
+                if (listOfNodesInsideBucket.ElementAt(i).key.Equals(key))
                 {
                     return true;
                 }
@@ -76,72 +82,101 @@ namespace Hashtable
 
         public void Add(Object key, Object value)
         {
+            if (key == null)
+            {
+                throw new ArgumentException("Key can not be null");
+            }
+            
+            if (GetLoadFactor() > loadFactor)
+            {
+                Rehash();
+            }
+
             int bucketNumber = DefineBucketWhereToStore(key);
-            LinkedList<Node> listOfKeyValuePairsInsideBucket = GetKeyValuePairsOfBucket(bucketNumber);
-            //if (listOfKeyValuePairsInsideBucket.Contains(key))
-            //{
-            //    throw new ArgumentException();
-            //}
-            if(ListContainsKey(listOfKeyValuePairsInsideBucket, key))
+            LinkedList<Node> listOfNodesInsideBucket = buckets[bucketNumber];
+
+            if(ListContainsKey(listOfNodesInsideBucket, key))
             {
                 throw new ArgumentException();
             }
-
-            if(value != null)
+            
+            if (value != null)
             {
-                listOfKeyValuePairsInsideBucket.AddLast(new Node(key, value));
+                listOfNodesInsideBucket.AddLast(new Node(key, value));
+                hashTableSize++;
             }
-        }
-
-        private int DefineBucketWhereToStore(Object key)
-        {
-            int bucketNumber = key.GetHashCode() % (size -1);
-            return Math.Abs(bucketNumber);
-        }
-
-        private LinkedList<Node> GetKeyValuePairsOfBucket(int bucketNumber)
-        {
-            LinkedList<Node> listOfKeyValuePairsInsideBucket = buckets[bucketNumber];
-            if(listOfKeyValuePairsInsideBucket == null)
-            {
-                listOfKeyValuePairsInsideBucket = new LinkedList<Node>();
-                buckets[bucketNumber] = listOfKeyValuePairsInsideBucket;
-            }
-
-            return buckets[bucketNumber];
         }
 
         public bool TryGet(Object key, out Object value)
         {
-            int bucketNumber = DefineBucketWhereToStore(key);
-            LinkedList<Node> listOfKeyValuePairsInsideBucket = GetKeyValuePairsOfBucket(bucketNumber);
-
-            //if (!listOfKeyValuePairsInsideBucket.Contains(key))
-            //{
-            //    throw new ArgumentException();
-            //}
-            if (!ListContainsKey(listOfKeyValuePairsInsideBucket, key))
+            if(Get(key) != null)
             {
-                throw new ArgumentException();
+                value = Get(key);
+                return true;
             }
-
-            for (int i = 0; i < listOfKeyValuePairsInsideBucket.Count; i++)
+            else
             {
-                if (listOfKeyValuePairsInsideBucket.ElementAt(i).key.Equals(key))
-                {
-                    value = listOfKeyValuePairsInsideBucket.ElementAt(i).value;
-                    return true;
-                }
+                value = default(Object);
+                return false;
             }
-
-            value = default(Object);
-            return false;
         }
 
         private Object Get(Object key)
         {
-            Object value = TryGet(key, out value); ;
+            if (key == null)
+            {
+                throw new ArgumentException("Key can not be null");
+            }
+
+            int bucketNumber = DefineBucketWhereToStore(key);
+            LinkedList<Node> listOfNodesInsideBucket = buckets[bucketNumber];
+
+            if (!ListContainsKey(listOfNodesInsideBucket, key))
+            {
+                throw new ArgumentException();
+            }
+
+            Object value = null;
+            for (int i = 0; i < listOfNodesInsideBucket.Count; i++)
+            {
+                if (listOfNodesInsideBucket.ElementAt(i).key.Equals(key))
+                {
+                    value = listOfNodesInsideBucket.ElementAt(i).value;
+                }
+            }
             return value;
+        }
+
+        private int DefineBucketWhereToStore(Object key)
+        {
+            int bucketNumber = key.GetHashCode() % (buckets.Length);
+            return Math.Abs(bucketNumber);
+        }
+
+        private int GetLoadFactor()
+        {
+            return hashTableSize / capacity;
+        }
+
+        private void Rehash()
+        {
+            LinkedList<Node>[] tempBuckets = buckets;
+            capacity = capacity * 2;
+            InitializeHashTable();
+
+            for (int arrayCounter = 0; arrayCounter < tempBuckets.Length; arrayCounter++)
+            {
+                for (int nodeCounter = 0; nodeCounter < tempBuckets[arrayCounter].Count; nodeCounter++)
+                {
+                    int bucketNumber = DefineBucketWhereToStore(tempBuckets[arrayCounter].ElementAt(nodeCounter).key);
+                    buckets[bucketNumber].AddLast(new Node(tempBuckets[arrayCounter].ElementAt(nodeCounter).key, tempBuckets[arrayCounter].ElementAt(nodeCounter).value));
+                }
+            }
+        }
+
+        public int GetSize()
+        {
+            return hashTableSize;
         }
 
         private class Node

@@ -18,6 +18,8 @@ Properties/
 *.config
 *.csproj
 *.sln
+*.xlsx
+Program.cs
 
 
 # MSTest test Results
