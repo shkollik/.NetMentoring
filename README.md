@@ -1,5 +1,6 @@
 # .NetMentoring
 Task 1 Data Structures
+  
   LinkedList:
 1. Implement linked list with such function set: Length, Add, AddAt, Remove, RemoveAt, ElementAt.
 2. Write down test cases in a document (txt, docx) to cover your linked list functionality.
@@ -7,6 +8,7 @@ Task 1 Data Structures
 4. Implement Ienumerable to make your list work with foeach
 
   HashTable:
+  
 1. Implement your hashtable, you should not use .Net structures (you can use only: array or linked list).
 2. Here is interface you must implement:
   interface IHashTable
