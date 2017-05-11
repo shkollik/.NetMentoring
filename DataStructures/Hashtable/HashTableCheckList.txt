@@ -1,0 +1,14 @@
+method :	[Contains, TryGet]
+conditions :	existed key
+		non existed key
+		key = null
+
+method : 	[Add]
+conditions :	existed key
+		non existed key
+		key = null
+		value = null
+		loadFactor < 0.75
+		loadFactor > 0.75
+
+

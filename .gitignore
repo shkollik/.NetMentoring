@@ -19,6 +19,7 @@ Properties/
 *.csproj
 *.sln
 *.xlsx
+*.docs
 Program.cs
 
 

@@ -1,0 +1,16 @@
+ 		 
+methods :	[AddAt, RemoveAt, ElementAt]
+conditions :	position < 0
+		position = 0 
+		position > size
+		position = size
+		position = [0 - last element]
+
+methods :	[AddToTheBeginning, AddToTheEnd]
+conditions :		size = 0
+			size > 0
+
+methods : 	[RemoveFromTheBeginning, RemoveFromTheEnd]
+conditions :		size = 0
+			size = 1
+			size > 1
