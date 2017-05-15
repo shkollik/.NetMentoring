@@ -1,0 +1,6 @@
+methods:		[Dequeue, Peek]
+conditions: 			count > 0
+				count = 0
+
+methods:		[Enqueue, Count]
+conditions:		1 item (not null)
