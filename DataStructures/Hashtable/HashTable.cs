@@ -30,7 +30,6 @@ namespace Hashtable
             InitializeHashTable();
         }
 
-
         private void InitializeHashTable()
         {
             buckets = new LinkedList<Node>[capacity];
