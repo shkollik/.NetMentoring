@@ -1,0 +1,6 @@
+methods:		[Pop, Peek]
+conditions: 	count > 0
+				count = 0
+
+methods:		[Push, Clear, Count]
+conditions:		1 item (not null)
