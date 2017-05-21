@@ -8,10 +8,6 @@ namespace Stack_NotBasedOnOtherDataStructures
     {
         private int _size;
         private Node<T> _head;
-        public Stack()
-        {
-
-        }
 
         public void Push(T value)
         {
