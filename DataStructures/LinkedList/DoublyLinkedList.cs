@@ -4,22 +4,22 @@ using System.Collections.Generic;
 
 namespace DataStructures
 {
-    class LinkedList<T> : IEnumerable<T>
+    public class DoublyLinkedList<T> : IEnumerable<T>
     {
         //Implement linked list with such function set: Length, Add, AddAt, Remove, RemoveAt, ElementAt.
         //Implement Ienumerable to make your list work with foeach
-        private Node<T> first;
-        private Node<T> last;
+        private Node<T> head;
+        private Node<T> tail;
         private int size;
 
-        public void AddToTheBeginning(T element)
+        public void AddFirst(T element)
         {
-            Node<T> helperNode = first;
+            Node<T> helperNode = head;
             Node<T> newNode = new Node<T>(null, element, helperNode);
-            first = newNode;
+            head = newNode;
             if (helperNode == null)
             {
-                last = newNode;
+                tail = newNode;
             }
             else
             {
@@ -28,18 +28,18 @@ namespace DataStructures
             size++;
         }
 
-        public void AddToTheEnd(T element)
+        public void AddLast(T element)
         {
-            Node<T> helperNode = last;
+            Node<T> helperNode = tail;
             Node<T> newNode = new Node<T>(helperNode, element, null);
-            last = newNode;
+            tail = newNode;
             if (helperNode == null)
             {
-                first = newNode;
+                head = newNode;
             }
             else
             {
-                helperNode.next = last;
+                helperNode.next = tail;
             }
             size++;
         }
@@ -48,7 +48,7 @@ namespace DataStructures
         {
             if (position == 0)
             {
-                AddToTheBeginning(element);
+                AddFirst(element);
             }
             else
             {
@@ -61,7 +61,7 @@ namespace DataStructures
 
         public void Add(T element)
         {
-            AddToTheEnd(element);
+            AddLast(element);
         }
 
         private Node<T> GetNodeAt(int position)
@@ -71,7 +71,7 @@ namespace DataStructures
                 throw new IndexOutOfRangeException();
             }
 
-            Node<T> node = first;
+            Node<T> node = head;
             for (int i = 0; i < position; i++)
             {
                 node = node.next;
@@ -85,12 +85,12 @@ namespace DataStructures
         }
 
 
-        public void RemoveFromTheBeginning()
+        public void RemoveFirst()
         {
             if (GetLength() > 1)
             {
-                first = first.next;
-                first.prev = null;
+                head = head.next;
+                head.prev = null;
                 size--;
             }
             else if (GetLength() == 1)
@@ -102,16 +102,16 @@ namespace DataStructures
 
         private void LeaveEmtyList()
         {
-            first = null;
-            last = null;
+            head = null;
+            tail = null;
         }
 
-        public void RemoveFromTheEnd()
+        public void RemoveLast()
         {
             if (GetLength() > 1)
             {
-                last = last.prev;
-                last.next = null;
+                tail = tail.prev;
+                tail.next = null;
                 size--;
             }
             else if (GetLength() == 1)
@@ -131,11 +131,11 @@ namespace DataStructures
             {
                 if (position == size - 1)
                 {
-                    RemoveFromTheEnd();
+                    RemoveLast();
                 }
                 else if (position == 0)
                 {
-                    RemoveFromTheBeginning();
+                    RemoveFirst();
                 }
                 else if (position > 1)
                 {
@@ -162,7 +162,7 @@ namespace DataStructures
 
         public IEnumerator<T> GetEnumerator()
         {
-            Node<T> current = first;
+            Node<T> current = head;
             while (current != null)
             {
                 yield return current.value;

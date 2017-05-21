@@ -1,8 +1,11 @@
 ﻿using NUnit.Framework;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-
-namespace Queue
+namespace Queue_NotBasedOnOtherDataStructures
 {
     class QueueTests
     {
@@ -78,6 +81,28 @@ namespace Queue
             queue.Enqueue(200);
 
             Assert.AreEqual(1, queue.Count);
+        }
+
+        [Test]
+        public void TestReorderingAfterDequeueIfQueueLength_isMoreThan_1()
+        {
+            Queue<int> queue = new Queue<int>();
+            queue.Enqueue(1);
+            queue.Enqueue(2);
+            queue.Enqueue(3);
+
+            queue.Dequeue();
+            Assert.AreEqual(2, queue.Peek());
+        }
+
+        [Test]
+        public void TestReorderingAfterDequeueIfQueueLength_is_1()
+        {
+            Queue<int> queue = new Queue<int>();
+            queue.Enqueue(1);
+
+            queue.Dequeue();
+            Assert.That(() => queue.Peek(), Throws.TypeOf<InvalidOperationException>());
         }
     }
 }

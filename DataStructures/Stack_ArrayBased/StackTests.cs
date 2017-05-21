@@ -1,7 +1,11 @@
 ﻿using NUnit.Framework;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Stack
+namespace Stack_ArrayBased
 {
     class StackTests
     {
@@ -34,12 +38,12 @@ namespace Stack
             int firstValue = 1;
             int secondValue = 2;
             int countBeforePop = 2;
-            
+
             stack.Push(firstValue);
             stack.Push(secondValue);
             stack.Pop();
 
-            Assert.AreEqual(countBeforePop-1, stack.Count);
+            Assert.AreEqual(countBeforePop - 1, stack.Count);
         }
 
         [Test]
@@ -71,12 +75,35 @@ namespace Stack
         }
 
         [Test]
+        public void TestClear()
+        {
+            Stack<int> stack = new Stack<int>();
+            stack.Push(100);
+
+            stack.Clear();
+
+            Assert.AreEqual(0, stack.Count);
+        }
+
+        [Test]
         public void TestCount()
         {
             Stack<int> stack = new Stack<int>();
             stack.Push(100);
-            
+
             Assert.AreEqual(1, stack.Count);
+        }
+
+        [Test]
+        public void TestResize()
+        {
+            int initialCapacity = 2;
+            Stack<int> stack = new Stack<int>(initialCapacity);
+            stack.Push(1);
+            stack.Push(2);
+
+            stack.Push(3);
+            Assert.AreEqual(initialCapacity + 1, stack.Count);
         }
     }
 }

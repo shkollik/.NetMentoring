@@ -2,7 +2,7 @@
 using System;
 
 
-namespace Queue
+namespace Queue_ArrayBased
 {
     class QueueTests
     {
@@ -78,6 +78,50 @@ namespace Queue
             queue.Enqueue(200);
 
             Assert.AreEqual(1, queue.Count);
+        }
+
+        [Test]
+        public void TestResize()
+        {
+            int initialCapacity = 2;
+            Queue<int> queue = new Queue<int>(initialCapacity);
+            queue.Enqueue(1);
+            queue.Enqueue(2);
+
+            queue.Enqueue(3);
+            Assert.AreEqual(initialCapacity + 1, queue.Count);
+        }
+
+        [Test]
+        public void TestClear()
+        {
+            Queue<int> queue = new Queue<int>();
+            queue.Enqueue(1000);
+
+            queue.Clear();
+            Assert.AreEqual(0, queue.Count);
+        }
+
+        [Test]
+        public void TestReorderingAfterDequeueIfQueueLength_isMoreThan_1()
+        {
+            Queue<int> queue = new Queue<int>();
+            queue.Enqueue(1);
+            queue.Enqueue(2);
+            queue.Enqueue(3);
+
+            queue.Dequeue();
+            Assert.AreEqual(2, queue.Peek());
+        }
+
+        [Test]
+        public void TestReorderingAfterDequeueIfQueueLength_is_1()
+        {
+            Queue<int> queue = new Queue<int>();
+            queue.Enqueue(1);
+
+            queue.Dequeue();
+            Assert.That(() => queue.Peek(), Throws.TypeOf<InvalidOperationException>());
         }
     }
 }

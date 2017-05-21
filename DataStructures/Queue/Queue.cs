@@ -1,20 +1,18 @@
-﻿using System;
+﻿using DataStructures;
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Queue
 {
-    //FIFO structure implemented via LinkedList
+    //FIFO structure implemented via SinglyLinkedList
     class Queue<T> : IEnumerable<T>
     {
-        LinkedList<T> _list;
+        SinglyLinkedList<T> _list;
 
         public Queue()
         {
-            _list = new LinkedList<T>();
+            _list = new SinglyLinkedList<T>();
         }
 
         //Add the specified item to the queue
@@ -26,12 +24,12 @@ namespace Queue
         //Removes and returns the first item from the queue
         public T Dequeue()
         {
-            if(_list.Count == 0)
+            if(_list.GetLength() == 0)
             {
                 throw new InvalidOperationException("The queue is empty");
             }
 
-            T value = _list.First.Value;
+            T value = _list.ElementAt(0);
             _list.RemoveFirst();
 
             return value;
@@ -40,19 +38,19 @@ namespace Queue
         //Returns the first item from the queue
         public T Peek()
         {
-            if (_list.Count == 0)
+            if (_list.GetLength() == 0)
             {
                 throw new InvalidOperationException("The queue is empty");
             }
 
-            return _list.First.Value;
+            return _list.ElementAt(0);
         }
 
         public int Count
         {
             get
             {
-                return _list.Count;
+                return _list.GetLength();
             }
         }
 

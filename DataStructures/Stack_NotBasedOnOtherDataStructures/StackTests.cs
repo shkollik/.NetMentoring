@@ -1,7 +1,8 @@
 ﻿using NUnit.Framework;
 using System;
 
-namespace Stack
+
+namespace Stack_NotBasedOnOtherDataStructures
 {
     class StackTests
     {
@@ -34,12 +35,12 @@ namespace Stack
             int firstValue = 1;
             int secondValue = 2;
             int countBeforePop = 2;
-            
+
             stack.Push(firstValue);
             stack.Push(secondValue);
             stack.Pop();
 
-            Assert.AreEqual(countBeforePop-1, stack.Count);
+            Assert.AreEqual(countBeforePop - 1, stack.Count);
         }
 
         [Test]
@@ -75,7 +76,7 @@ namespace Stack
         {
             Stack<int> stack = new Stack<int>();
             stack.Push(100);
-            
+
             Assert.AreEqual(1, stack.Count);
         }
     }

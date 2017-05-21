@@ -1,16 +1,17 @@
-﻿using System;
+﻿using DataStructures;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
 namespace Stack
 {
-    //LIFO structure implemented via LinkedList
+    //LIFO structure implemented via SinglyLinkedList
     class Stack<T> : IEnumerable<T>
     {
-        private LinkedList<T> _list;
+        private SinglyLinkedList<T> _list;
         public Stack()
         {
-            _list = new LinkedList<T>();
+            _list = new SinglyLinkedList<T>();
         }
 
         //Add the specified item to the stack
@@ -22,12 +23,12 @@ namespace Stack
         //Removes and returns the first item from stack
         public T Pop()
         {
-            if(_list.Count == 0)
+            if(_list.GetLength() == 0)
             {
                 throw new InvalidOperationException("The stack is empty");
             }
 
-            T value = _list.First.Value;
+            T value = _list.ElementAt(0);
             _list.RemoveFirst();
             return value;
         }
@@ -35,25 +36,20 @@ namespace Stack
         //Returns the topt item from stack without removing it
         public T Peek()
         {
-            if (_list.Count == 0)
+            if (_list.GetLength() == 0)
             {
                 throw new InvalidOperationException("The stack is empty");
             }
 
-            return _list.First.Value;
+            return _list.ElementAt(0);
         }
 
         public int Count
         {
             get
             {
-                return _list.Count;
+                return _list.GetLength();
             }
-        }
-
-        public void Clear()
-        {
-            _list.Clear();
         }
 
         public IEnumerator<T> GetEnumerator()

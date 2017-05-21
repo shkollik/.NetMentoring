@@ -59,12 +59,17 @@ namespace Hashtable
                 throw new ArgumentException("Key can not be null");
             }
 
-            int bucketNumber = DefineBucketWhereToStore(key);
-            LinkedList<Node> listOfNodesInsideBucket = buckets[bucketNumber];
+            LinkedList<Node> listOfNodesInsideBucket = GetListOfNodesInsideBucket(key);
 
             return ListContainsKey(listOfNodesInsideBucket, key);
         }
-        
+
+        private LinkedList<Node> GetListOfNodesInsideBucket(object key)
+        {
+            int bucketNumber = DefineBucketWhereToStore(key);
+            LinkedList<Node> listOfNodesInsideBucket = buckets[bucketNumber];
+            return listOfNodesInsideBucket;
+        }
 
         private bool ListContainsKey(LinkedList<Node> listOfNodesInsideBucket, Object key)
         {
@@ -91,10 +96,8 @@ namespace Hashtable
                 Rehash();
             }
 
-            int bucketNumber = DefineBucketWhereToStore(key);
-            LinkedList<Node> listOfNodesInsideBucket = buckets[bucketNumber];
-
-            if(ListContainsKey(listOfNodesInsideBucket, key))
+            LinkedList<Node> listOfNodesInsideBucket = GetListOfNodesInsideBucket(key);
+            if (ListContainsKey(listOfNodesInsideBucket, key))
             {
                 throw new ArgumentException();
             }
@@ -127,9 +130,7 @@ namespace Hashtable
                 throw new ArgumentException("Key can not be null");
             }
 
-            int bucketNumber = DefineBucketWhereToStore(key);
-            LinkedList<Node> listOfNodesInsideBucket = buckets[bucketNumber];
-
+            LinkedList<Node> listOfNodesInsideBucket = GetListOfNodesInsideBucket(key);
             if (!ListContainsKey(listOfNodesInsideBucket, key))
             {
                 throw new ArgumentException();
