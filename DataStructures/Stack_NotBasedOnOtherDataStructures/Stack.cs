@@ -84,8 +84,7 @@ namespace Stack_NotBasedOnOtherDataStructures
         {
             while(_size != 0)
             {
-                yield return GetLastNode().value;
-                Pop();
+                yield return Pop();
             }
         }
 
