@@ -9,13 +9,31 @@ namespace NetMentoring
 
         public MemoryStreamLogger()
         {
-            memoryStream = new FileStream(@"\log.txt", FileMode.OpenOrCreate);
-            streamWriter = new StreamWriter(memoryStream);
+            using (memoryStream = new FileStream(@"\log.txt", FileMode.OpenOrCreate))
+            {
+                using (streamWriter = new StreamWriter(memoryStream))
+                {
+                }
+            }
         }
 
         public void Log(string message)
         {
-            streamWriter.Write(message);
+            try
+            {
+                streamWriter.Write(message);
+            }
+            catch (IOException e)
+            {
+
+            }
+            finally
+            {
+                if (streamWriter != null)
+                {
+                    streamWriter.Dispose();
+                }
+            }
         }
 
    }
