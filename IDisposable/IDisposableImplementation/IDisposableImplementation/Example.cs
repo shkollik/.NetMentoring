@@ -15,7 +15,7 @@ namespace NetMentoring
 
         private static void WriteLog(string str)
         {
-            var logger = new MemoryStreamLogger();
+            var logger = new MemoryStreamLogger3();
             logger.Log(str);
         }
     }
