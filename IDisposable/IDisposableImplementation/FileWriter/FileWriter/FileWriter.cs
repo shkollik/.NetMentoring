@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using System.Text;
 
 namespace Convestudo.Unmanaged
 {
-    public class FileWriter: IFileWriter
+    public class FileWriter: IFileWriter, IDisposable
     {
-        private readonly IntPtr _fileHandle;
+        private IntPtr _fileHandle;
 
         /// <summary>
         /// Creates file
@@ -36,8 +37,12 @@ namespace Convestudo.Unmanaged
 
         private void ThrowLastWin32Err()
         {
-            Marshal.ThrowExceptionForHR(
-             Marshal.GetHRForLastWin32Error());
+            var error = Marshal.GetHRForLastWin32Error();
+            // if file is open do not throw the exception
+            if ((error & 0xffff) != 0 && (error & 0xffff) != 183)
+            {
+                Marshal.ThrowExceptionForHR(error);
+            }
         }
 
         public FileWriter(string fileName)
@@ -56,10 +61,10 @@ namespace Convestudo.Unmanaged
 
         public void Write(string str)
         {
+            if (_fileHandle == IntPtr.Zero) return;
             var bytes = GetBytes(str);
             uint bytesWritten = 0;
             WriteFile(_fileHandle, bytes, (uint) bytes.Length, ref bytesWritten, IntPtr.Zero);
-            //throw new System.NotImplementedException();
         }
 
         public void WriteLine(string str)
@@ -72,11 +77,31 @@ namespace Convestudo.Unmanaged
         /// </summary>
         /// <param name="str"></param>
         /// <returns></returns>
-        static byte[] GetBytes(string str)
+        private static byte[] GetBytes(string str)
         {
-            var bytes = new byte[str.Length * sizeof(char)];
-            Buffer.BlockCopy(str.ToCharArray(), 0, bytes, 0, bytes.Length);
+            var bytes = Encoding.ASCII.GetBytes(str);
             return bytes;
         }
+
+        public void Dispose()
+        {
+            // Clean up
+            if (_fileHandle != IntPtr.Zero)
+            {
+                CloseHandle(_fileHandle);
+                _fileHandle = IntPtr.Zero; 
+            }
+
+            GC.SuppressFinalize(this);
+        }
+
+        [System.Runtime.InteropServices.DllImport("Kernel32", SetLastError = true)]
+        private extern static bool CloseHandle(IntPtr handle);
+
+        ~FileWriter()
+        {
+            Dispose();
+        }
+
     }
 }

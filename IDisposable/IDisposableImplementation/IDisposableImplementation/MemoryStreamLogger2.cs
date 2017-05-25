@@ -9,8 +9,15 @@ namespace NetMentoring
 
         public MemoryStreamLogger2()
         {
-            memoryStream = new FileStream(@"D:\.NET MENTORING PROGRSM\log.txt", FileMode.OpenOrCreate);
-            streamWriter = new StreamWriter(memoryStream);
+            if (memoryStream == null)
+            {
+                memoryStream = new FileStream(@"D:\.NET MENTORING PROGRSM\log.txt", FileMode.OpenOrCreate);
+            }
+
+            if(streamWriter == null)
+            {
+                streamWriter = new StreamWriter(memoryStream);
+            }
         }
 
         public void Log(string message)

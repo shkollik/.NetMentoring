@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NetMentoring
 {
@@ -11,10 +8,6 @@ namespace NetMentoring
     {
         private FileStream memoryStream;
         private StreamWriter streamWriter;
-
-        public MemoryStreamLogger3()
-        {
-        }
 
         public void Log(string message)
         {
