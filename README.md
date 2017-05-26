@@ -20,3 +20,10 @@ Task 1 Data Structures
 3. If setter tries to set null, such element must be removed from the dictionary.
 4. Any .Net object can be used as a key or value.
 5. If you try to add the object by a key which already exists in the hash table – throw an exception.
+
+Task2 IDisposable
+1. Code fix. Please download code from 
+https://github.com/epm-dmentor/2015-mentoring-program/tree/master/practice/tasks/IDisposable/IDisposableImplementation
+and review it, if something is wrong correct it.
+2. Fix code. Unmanaged code usage. FileWriter 
+https://github.com/epm-dmentor/2015-mentoring-program/tree/master/practice/tasks/IDisposable/FileWriter
