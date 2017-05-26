@@ -1,27 +1,36 @@
-﻿using System.IO;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace NetMentoring
 {
-    public class MemoryStreamLogger
+    class MemoryStreamLogger4 : IDisposable
     {
         private FileStream memoryStream;
         private StreamWriter streamWriter;
-
-        public MemoryStreamLogger()
+        public MemoryStreamLogger4()
         {
-            if(memoryStream == null)
+            memoryStream = new FileStream(@"D:\.NET MENTORING PROGRSM\log.txt", FileMode.OpenOrCreate);
+            streamWriter = new StreamWriter(memoryStream);
+        }
+
+        public void Dispose()
+        {
+            if (streamWriter != null)
             {
-                memoryStream = new FileStream(@"D:\.NET MENTORING PROGRSM\log.txt", FileMode.OpenOrCreate);
+                streamWriter.Dispose();
+                streamWriter = null; 
             }
         }
 
         public void Log(string message)
         {
-            using (streamWriter = new StreamWriter(memoryStream))
-            {
-                streamWriter.Write(message);
-            }
-        }
+            if (streamWriter == null) return;
 
-   }
+            streamWriter.Write(message);
+        }
+    }
 }
