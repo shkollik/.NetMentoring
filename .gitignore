@@ -16,11 +16,14 @@ x64/
 
 Properties/
 *.config
-*.csproj
-*.sln
+# *.csproj
+# *.sln
 *.xlsx
 *.docs
 Program.cs
+MemoryStreamLogger.cs
+MemoryStreamLogger2.cs
+MemoryStreamLogger3.cs
 
 
 # MSTest test Results
