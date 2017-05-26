@@ -7,14 +7,21 @@ using System.Threading.Tasks;
 
 namespace NetMentoring
 {
-    class MemoryStreamLogger4 : IDisposable
+    class MemoryStreamLogger : IDisposable
     {
         private FileStream memoryStream;
         private StreamWriter streamWriter;
-        public MemoryStreamLogger4()
+        public MemoryStreamLogger()
         {
             memoryStream = new FileStream(@"D:\.NET MENTORING PROGRSM\log.txt", FileMode.OpenOrCreate);
             streamWriter = new StreamWriter(memoryStream);
+        }
+
+        public void Log(string message)
+        {
+            if (streamWriter == null) return;
+
+            streamWriter.Write(message);
         }
 
         public void Dispose()
@@ -24,13 +31,15 @@ namespace NetMentoring
                 streamWriter.Dispose();
                 streamWriter = null; 
             }
+
+            GC.SuppressFinalize(this);
         }
 
-        public void Log(string message)
+        ~MemoryStreamLogger()
         {
-            if (streamWriter == null) return;
-
-            streamWriter.Write(message);
+            Dispose();
         }
+
+
     }
 }

@@ -41,12 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ExampleForMemoryStreamLogger4.cs" />
-    <Compile Include="MemoryStreamLogger2.cs" />
-    <Compile Include="MemoryStreamLogger.cs" />
     <Compile Include="Example.cs" />
-    <Compile Include="MemoryStreamLogger3.cs" />
-    <Compile Include="MemoryStreamLogger4.cs" />
+    <Compile Include="MemoryStreamLogger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

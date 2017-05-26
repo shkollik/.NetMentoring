@@ -78,15 +78,21 @@ namespace FileWriterTests
                 fileWriter.WriteLine(testLine);
             }
 
-            var fileStream = File.OpenRead(TestFileName);
-            
+            var fileStream = File.OpenRead(TestFileName);            
                 using (var streamReader = new StreamReader(fileStream))
                 {
                     var str = streamReader.ReadToEnd();
                     Assert.AreEqual(extectedStr, str);
                 }
-            
+        }
 
+        [Test]
+        public void WriteThrowsExceptionAfterDispose()
+        {
+            var fileWriter = new FileWriter(TestFileName);
+
+            fileWriter.Dispose();
+            Assert.Throws(typeof(InvalidOperationException), () => fileWriter.Write("sdsd"));
         }
     }
 }

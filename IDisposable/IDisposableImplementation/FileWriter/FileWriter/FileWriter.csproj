@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FileCreationEnums.cs" />
+    <Compile Include="FileWriter2.cs" />
     <Compile Include="FileWriter.cs" />
     <Compile Include="FileWriterTests.cs" />
     <Compile Include="IFileWriter.cs" />
