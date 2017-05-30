@@ -22,6 +22,7 @@ Properties/
 *.docs
 Program.cs
 FileWriterWithoutDisposePattern.cs
+FileWriterTests/
 
 
 # MSTest test Results
