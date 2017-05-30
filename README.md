@@ -28,5 +28,15 @@ and review it, if something is wrong correct it.
 2. Fix code. Unmanaged code usage. FileWriter 
 https://github.com/epm-dmentor/2015-mentoring-program/tree/master/practice/tasks/IDisposable/FileWriter
 
-Task project is forked and with my changes located here: https://github.com/shkollik/2015-mentoring-program
+Task project is forked and with my changes located here: 2.1 -> https://github.com/shkollik/2015-mentoring-program/tree/master/practice/tasks/IDisposable/IDisposableImplementation
+														 2.2 -> https://github.com/shkollik/2015-mentoring-program/tree/master/practice/tasks/IDisposable/FileWriter
 To compare changes of code fix go : https://github.com/epm-dmentor/2015-mentoring-program/compare/master...shkollik:master
+
+Task 3 Garbage Collector
+1. Please download code from https://github.com/epm-dmentor/2015-mentoring-program/tree/master/practice/tasks/IDisposable/ZooInDanger. 
+Zoo application has an issue at some moment garbadge collection stops working properly. Please find out the reason, resolve it and explain.
+
+Task project is forked and with my changes located here: https://github.com/shkollik/2015-mentoring-program/tree/master/practice/tasks/IDisposable/ZooInDanger
+To compare changes of code fix go : https://github.com/shkollik/2015-mentoring-program/blob/6acb21eff8fcf9f9aaeaf0602695874935be148a/practice/tasks/IDisposable/ZooInDanger/ZooInDanger/Animals/Cat.cs
+									Commented the check in finalizer that leads to garbage collector issues
+
