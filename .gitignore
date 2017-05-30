@@ -21,9 +21,7 @@ Properties/
 *.xlsx
 *.docs
 Program.cs
-MemoryStreamLogger.cs
-MemoryStreamLogger2.cs
-MemoryStreamLogger3.cs
+FileWriterWithoutDisposePattern.cs
 
 
 # MSTest test Results

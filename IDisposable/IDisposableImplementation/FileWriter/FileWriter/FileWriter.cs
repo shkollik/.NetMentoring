@@ -6,6 +6,9 @@ namespace Convestudo.Unmanaged
 {
     public class FileWriter: IFileWriter, IDisposable
     {
+        // Track whether Dispose has been called.
+        private bool disposed = false;
+
         // Pointer to an external unmanaged resource.
         private IntPtr _fileHandle;
 
@@ -62,10 +65,11 @@ namespace Convestudo.Unmanaged
 
         public void Write(string str)
         {
-            if (_fileHandle == IntPtr.Zero)
+            if (disposed)
             {
                 throw new InvalidOperationException("file is already closed");
             }
+
             var bytes = GetBytes(str);
             uint bytesWritten = 0;
             WriteFile(_fileHandle, bytes, (uint) bytes.Length, ref bytesWritten, IntPtr.Zero);
@@ -89,14 +93,29 @@ namespace Convestudo.Unmanaged
 
         public void Dispose()
         {
-            // Clean up
-            if (_fileHandle != IntPtr.Zero)
-            {
-                CloseHandle(_fileHandle);
-                _fileHandle = IntPtr.Zero; 
-            }
-
+            Dispose(true);
             GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!this.disposed)
+            {
+                if (disposing)
+                {
+                    //To clean up managed resources
+                }
+
+                //To clean up unmanaged resources
+                if(_fileHandle != IntPtr.Zero)
+                {
+                    CloseHandle(_fileHandle);
+                    _fileHandle = IntPtr.Zero;
+                }
+
+                // Note that disposing has been done.
+                disposed = true;
+            }
         }
 
         [System.Runtime.InteropServices.DllImport("Kernel32", SetLastError = true)]
@@ -104,7 +123,7 @@ namespace Convestudo.Unmanaged
 
         ~FileWriter()
         {
-            Dispose();
+            Dispose(false);
         }
 
     }
