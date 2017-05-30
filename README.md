@@ -37,6 +37,6 @@ Task 3 Garbage Collector
 Zoo application has an issue at some moment garbadge collection stops working properly. Please find out the reason, resolve it and explain.
 
 Task project is forked and with my changes located here: https://github.com/shkollik/2015-mentoring-program/tree/master/practice/tasks/IDisposable/ZooInDanger
-To compare changes of code fix go : https://github.com/shkollik/2015-mentoring-program/blob/6acb21eff8fcf9f9aaeaf0602695874935be148a/practice/tasks/IDisposable/ZooInDanger/ZooInDanger/Animals/Cat.cs
+To compare changes of code fix go : https://github.com/shkollik/2015-mentoring-program/blob/master/practice/tasks/IDisposable/ZooInDanger/ZooInDanger/Animals/Cat.cs
 									Commented the check in finalizer that leads to garbage collector issues
 
