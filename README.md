@@ -21,9 +21,12 @@ Task 1 Data Structures
 4. Any .Net object can be used as a key or value.
 5. If you try to add the object by a key which already exists in the hash table – throw an exception.
 
-Task2 IDisposable
+Task 2 IDisposable
 1. Code fix. Please download code from 
 https://github.com/epm-dmentor/2015-mentoring-program/tree/master/practice/tasks/IDisposable/IDisposableImplementation
 and review it, if something is wrong correct it.
 2. Fix code. Unmanaged code usage. FileWriter 
 https://github.com/epm-dmentor/2015-mentoring-program/tree/master/practice/tasks/IDisposable/FileWriter
+
+Task project is forked and with my changes located here: https://github.com/shkollik/2015-mentoring-program
+To compare changes of code fix go : https://github.com/epm-dmentor/2015-mentoring-program/compare/master...shkollik:master
