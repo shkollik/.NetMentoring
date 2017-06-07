@@ -40,3 +40,14 @@ Task project is forked and with my changes located here: https://github.com/shko
 To compare changes of code fix go : https://github.com/shkollik/2015-mentoring-program/blob/master/practice/tasks/IDisposable/ZooInDanger/ZooInDanger/Animals/Cat.cs
 									Commented the check in finalizer that leads to garbage collector issues
 
+2. Write a class which will recover itself during garbage collection for the whole lifecycle of the application. During recovering you should write something to console to indicate that. 
+Create this object and make GC to collection your object (mentee should exmplain how to do that: either by memory overloading by creating instances of some classes, or calling CG.Collect). 
+Check if recovering works.
+ (solution: usage of GC.ReRegisterForFinalize(this) in object finalizer) Look at //Resurrection/Ressurection.
+ 
+3. Write a class which will constancly recover itself, but you can not use any global fields for that. Please indicate recovering by writing some test to console. 
+Close the programm, monitor what happened at the end.Why that happens.
+(solution: before kill assign object to static variable) Look at //Resurrection/Ressurection2.
+
+4. Find the issue, explain and fix: public struct Point { public int X; public void IncX() { X++; } } static void Main() { var points = new List<Point>(Enumerable.Range(1, 10).Select(p => new Point())); foreach (var p in points) { p.IncX(); } foreach (var p in points) { Console.WriteLine(p.X); } Console.ReadKey(); }
+(solution: change foreach loop to for loop and use temp variable) Look at //Struct_Iteration
